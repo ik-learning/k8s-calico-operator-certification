@@ -10,9 +10,9 @@ help:
 	@printf "Usage: make [target] [VARIABLE=value]\nTargets:\n"
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-shell: ## Python environment
-	@pipenv shell
-	@pipenv install
+setup: ## Setup environment
+	-@brew install --cask multipass
+	-@sudo multipass set local.driver=virtualbox
 
 hooks: ## Setup pre commit.
 	@pre-commit install

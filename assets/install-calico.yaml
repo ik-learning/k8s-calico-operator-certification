@@ -1,0 +1,13 @@
+---
+# https://courses.academy.tigera.io/courses/course-v1:tigera+CCO-L1+CCO-L1-2020/courseware/34335c1507344450bbda775dd4460119/5925b34827c349abb506b1ae42c78a8d/?child=first
+apiVersion: operator.tigera.io/v1
+kind: Installation
+metadata:
+  name: default
+spec:
+  calicoNetwork:
+    containerIPForwarding: Enabled
+    ipPools:
+    - cidr: 198.19.16.0/21
+      natOutgoing: Enabled
+      encapsulation: None
