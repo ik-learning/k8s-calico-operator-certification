@@ -29,7 +29,7 @@ multipass info --all
 multipass shell test1
 multipass delete test1
 multipass purge
-multipass mount assets host1:/home/ubuntu/assets
+multipass mount manifests host1:/home/ubuntu/manifests
 multipass mount scripts host1:/home/ubuntu/scripts
 multipass info host1
 multipass unmount host1
@@ -44,12 +44,12 @@ sudo multipass set local.driver=hyperkit
 
 <!-- START makefile-doc -->
 ```
-$ make help 
+$ make help
 Usage: make [target] [VARIABLE=value]
 Targets:
 setup                          Setup environment
 hooks                          Setup pre commit.
 validate                       Validate files with pre-commit hooks
-run                            Run project 
+run                            Run project
 ```
 <!-- END makefile-doc -->

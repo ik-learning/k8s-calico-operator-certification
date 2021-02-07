@@ -1,0 +1,46 @@
+# This should timeout because we haven't provided detailed policy for the customer and summary pods.
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: customer-policy
+  namespace: yaobank
+spec:
+  podSelector:
+    matchLabels:
+      app: customer
+  ingress:
+    - ports:
+      - protocol: TCP
+        port: 80
+  egress:
+    - to: []
+---
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: summary-policy
+  namespace: yaobank
+spec:
+  podSelector:
+    matchLabels:
+      app: summary
+  ingress:
+    - from:
+      - podSelector:
+          matchLabels:
+            app: customer
+      ports:
+      - protocol: TCP
+        port: 80
+  egress:
+    - to:
+      - podSelector:
+          matchLabels:
+            app: database
+      ports:
+      - protocol: TCP
+        port: 2379
+
+# kubectl apply -f protect-apps.yml
+# https://courses.academy.tigera.io/courses/course-v1:tigera+CCO-L1+CCO-L1-2020/courseware/6b2f1c92019f42af9abd3fa3d51e037d/deaaa1cd40e248e3a22ee971e34ccf94/?child=first

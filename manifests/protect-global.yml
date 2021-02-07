@@ -1,0 +1,13 @@
+---
+apiVersion: projectcalico.org/v3
+kind: GlobalNetworkPolicy
+metadata:
+  name: default-app-policy
+spec:
+  namespaceSelector: has(projectcalico.org/name) && projectcalico.org/name not in {"kube-system", "calico-system"}
+  types:
+  - Ingress
+  - Egress
+
+# calicoctl apply -f protect-global.yml
+# https://courses.academy.tigera.io/courses/course-v1:tigera+CCO-L1+CCO-L1-2020/courseware/6b2f1c92019f42af9abd3fa3d51e037d/deaaa1cd40e248e3a22ee971e34ccf94/?child=first
