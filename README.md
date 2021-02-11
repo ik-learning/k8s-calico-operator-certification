@@ -1,5 +1,7 @@
 # Calico Operator Certification
 
+How to secure kubernetes workloads from multiple angles
+
 - [Link](https://academy.tigera.io/course/certified-calico-operator-level-1/)
 
 ## Setup

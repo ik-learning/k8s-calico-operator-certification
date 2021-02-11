@@ -1,0 +1,24 @@
+# ube-proxy load balances incoming connections to node ports to the pods backing the corresponding service. This process involves using DNAT (Destination Network Address Translation) to map the connection to the node port to a pod IP address and port. (We’ll dig deeper into Kubernetes services and how NAT works next week’s modules.)
+
+# Calico GlobalNetworkPolicy allows you to write policy that is enforced before this translation takes place. i.e. Policy that sees the original node port as the destination, not the backing pod that is being load balanced to as the destination.
+---
+apiVersion: projectcalico.org/v3
+kind: GlobalNetworkPolicy
+metadata:
+  name: nodeport-policy
+spec:
+  order: 100
+  selector: has(kubernetes.io/hostname)
+  applyOnForward: true
+  preDNAT: true
+  ingress:
+  - action: Deny
+    protocol: TCP
+    destination:
+      ports: ["30000:32767"]
+  - action: Deny
+    protocol: UDP
+    destination:
+      ports: ["30000:32767"]
+
+# calicoctl apply -f lock-down-node.yml

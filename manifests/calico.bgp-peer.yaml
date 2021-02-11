@@ -1,0 +1,11 @@
+# In this lab we will simulate peering to a network outside of the cluster by peering to host1. (We've set up host1 to act as if it were a router, and it is ready to accept new BGP peering requests.)
+---
+apiVersion: projectcalico.org/v3
+kind: BGPPeer
+metadata:
+  name: bgppeer-global-host1
+spec:
+  peerIP: 198.19.15.254
+  asNumber: 64512
+
+# calicoctl apply -f ./manifests/calico.bgp-peer.yaml

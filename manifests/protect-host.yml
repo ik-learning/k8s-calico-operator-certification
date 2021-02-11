@@ -1,0 +1,23 @@
+# Create Network Policy for Nodes
+# Let's create some policies for the kubernetes nodes. Host endpoints are non-namespaced. So in order to secure host endpoints we'll need to use Calico global network policies. In a similar fashion to how we created the default-app-policy for pods in the previous module which allowed DNS but default denied all other traffic, we’ll create a default-node-policy that allows processes running in the host network namespace to connect to each other, but results in default-deny behavior for any other node connections.
+---
+apiVersion: projectcalico.org/v3
+kind: GlobalNetworkPolicy
+metadata:
+  name: default-node-policy
+spec:
+  selector: has(kubernetes.io/hostname)
+  ingress:
+  - action: Allow
+    protocol: TCP
+    source:
+      nets:
+      - 127.0.0.1/32
+  - action: Allow
+    protocol: UDP
+    source:
+      nets:
+      - 127.0.0.1/32
+
+# calicoctl apply -f protect-host.yml
+# calicoctl get heps
