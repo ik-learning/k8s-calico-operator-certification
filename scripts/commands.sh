@@ -2,6 +2,7 @@
 
 kubectl get pods -n yaobank -l app=customer -o wide
 kubectl cluster-info dump | grep -m 2 -E "service-cidr|cluster-cidr"
+kubectl logs -n yaobank -l app=customer --follow
 
 calicoctl get ippool default-ipv4-ippool -o yaml
 calicoctl get node node1 -o yaml
@@ -26,3 +27,19 @@ calicoctl ipam show
 # | IP Pool  | 198.19.16.0/21 |      2048 | 12 (1%)    | 2036 (99%)  |
 # | IP Pool  | 198.19.24.0/21 |      2048 | 1 (0%)     | 2047 (100%) |
 # +----------+----------------+-----------+------------+-------------+
+
+
+## IP
+
+iptables -v --numeric --table nat --list KUBE-SERVICES | grep KUBE-NODEPORTS
+iptables -v --numeric --table nat --list KUBE-NODEPORTS
+iptables -v --numeric --table nat --list KUBE-SVC-PX5FENG4GZJTCELT
+
+
+ip addr
+ip -c link show up
+
+
+# Loggin
+
+sudo tcpdump -nvi any 'tcp port 30180'

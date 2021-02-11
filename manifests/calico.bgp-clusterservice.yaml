@@ -1,0 +1,11 @@
+# The serviceClusterIPs clause below tells Calico to advertise the cluster IP range.
+---
+apiVersion: projectcalico.org/v3
+kind: BGPConfiguration
+metadata:
+  name: default
+spec:
+  serviceClusterIPs:
+  - cidr: "198.19.32.0/20"
+
+# calicoctl apply -f ./calico.bgp-clusterservice.yaml
